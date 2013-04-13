@@ -43,7 +43,7 @@ CPU=-mcpu=cortex-m4
 FPU=-mfpu=fpv4-sp-d16 -mfloat-abi=softfp
 
 # Stellarisware path
-STELLARISWARE_PATH=~/stellaris/stellaris/
+STELLARISWARE_PATH=~/Downloads/tmp/
 
 # Program name definition for ARM GNU C compiler.
 CC      = ${PREFIX_ARM}-gcc
@@ -78,7 +78,7 @@ LIBM_PATH=${shell ${CC} ${CFLAGS} -print-file-name=libm.a}
 # Uploader tool path.
 # Set a relative or absolute path to the upload tool program.
 # I used this project: https://github.com/utzig/lm4tools
-FLASHER=~/stellaris/lm4tools/lm4flash/lm4flash
+FLASHER=lm4flash
 # Flags for the uploader program.
 FLASHER_FLAGS=
 
@@ -114,7 +114,7 @@ ${PROJECT_NAME}.axf: $(OBJS)
 	$(MAKE) -C ${STELLARISWARE_PATH}driverlib/
 	@echo
 	@echo Linking...
-	$(LD) -T $(LINKER_FILE) $(LFLAGS) -o ${PROJECT_NAME}.axf $(OBJS) ${STELLARISWARE_PATH}driverlib/gcc-cm4f/libdriver-cm4f.a $(LIBM_PATH) $(LIBC_PATH) $(LIB_GCC_PATH)
+	$(LD) -T $(LINKER_FILE) $(LFLAGS) -o ${PROJECT_NAME}.axf $(OBJS) ${STELLARISWARE_PATH}driverlib/gcc/libdriver.a $(LIBM_PATH) $(LIBC_PATH) $(LIB_GCC_PATH)
 
 ${PROJECT_NAME}: ${PROJECT_NAME}.axf
 	@echo
@@ -131,4 +131,4 @@ clean:
 # Rule to load the project to the board
 # I added a sudo because it's needed without a rule.
 load:
-	sudo ${FLASHER} ${PROJECT_NAME}.bin ${FLASHER_FLAGS}
+	${FLASHER} ${PROJECT_NAME}.bin ${FLASHER_FLAGS}
