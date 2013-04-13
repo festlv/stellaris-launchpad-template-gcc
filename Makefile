@@ -38,7 +38,7 @@
 PREFIX_ARM = arm-none-eabi
 
 # Microcontroller properties.
-PART=LM4F120H5QR
+PART=TM4C1233H6PM
 CPU=-mcpu=cortex-m4
 FPU=-mfpu=fpv4-sp-d16 -mfloat-abi=softfp
 
